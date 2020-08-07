@@ -1,6 +1,5 @@
 var express = require('express');
 var kaltura = require('kaltura-client');
-const { use } = require('./updaterooms');
 var router = express.Router();
 
 /* GET home page. */
@@ -29,11 +28,12 @@ router.get('/', function(req, res, next) {
     // Get list of resources
     let filter = new kaltura.objects.ScheduleResourceFilter();
     let pager = new kaltura.objects.FilterPager();
+    pager.pageSize = 500;
     kaltura.services.scheduleResource.listAction(filter, pager)
     .execute(client)
     .then(result => {
         console.log(result);
-        res.render('index', { title: 'Kaltura Room Manager', resources: result.objects });
+        res.render('index', { title: 'virtual room manager', resources: result.objects });
     });
   })
   .execute(client);
@@ -43,7 +43,7 @@ router.get('/', function(req, res, next) {
                     { id: 456, name: "Room 2", description: "Second room", tags: "vcprovider:newrow" },
                     { id: 789, name: "Room 3", description: "Third room",  tags: "vcprovider:newrow" }
                   ];
-  res.render('index', { title: 'Kaltura Room Manager', resources: resources });
+  res.render('index', { title: 'virtual room manager', resources: resources });
   */
 });
 

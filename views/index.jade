@@ -24,7 +24,7 @@ block content
           td(contenteditable)= room.tags
 
   script.
-    var updaterooms = function() {
+    function updateRooms(bDeleteRooms) {
       var checkedRows = [];
       var headersText = [];
       var $headers = $("th");
@@ -52,8 +52,8 @@ block content
       });
 
       // Convert checkedRows to JSON
-      var updatedRooms = JSON.stringify( { "updatedRooms": checkedRows } );
-      //alert(updatedRooms);
+      var checkedRowsJson = JSON.stringify( { "updatedRooms": checkedRows } );
+      //alert(checkedRowsJson);
 
       // Send POST to /updaterooms and reload page when updates complete
       var xhr = new XMLHttpRequest();
@@ -65,9 +65,25 @@ block content
         }
       }
       xhr.send(JSON.stringify({
-          value: updatedRooms
+          rooms: checkedRowsJson,
+          delete: bDeleteRooms
       }));
     }
 
   h4.divider _______________
-  button.update.btn-primary(onclick='updaterooms()') Update Rooms
+  button.btn.update(onclick='updateRooms(false)') Update Rooms
+  button.btn.delete(onclick='updateRooms(true)') Delete Rooms
+  h4.divider _______________
+
+  form(method='POST' action='/createroom')
+    div.form-group
+      label.label(for='name') Room Name
+      input#name.input.form-control(type='text', placeholder='room name' name='name')
+    div.form-group
+      label.label(for='description') Description
+      input#description.input.form-control(type='text', placeholder='room description' name='description')
+    div.form-group
+      label.label(for='tags') Tags
+      input#tags.input.form-control(type='text', placeholder='tags' name='tags' value='vcprovider:newrow')
+    button.btn.create(type='submit') Create Room
+  h4.divider _______________

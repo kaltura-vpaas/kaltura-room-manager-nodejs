@@ -2,7 +2,6 @@ var express = require('express');
 var kaltura = require('kaltura-client');
 var router = express.Router();
 
-/* GET redirect back to register page if user gets here without registering */
 router.post('/', function(req, res, next) {
   const config = new kaltura.Configuration();
   config.serviceUrl = req.app.get('kserviceUrl');
@@ -24,27 +23,41 @@ router.post('/', function(req, res, next) {
     client.setKs(ks);
 
     var scheduleResource = new kaltura.objects.LocationScheduleResource();
-    var val = JSON.parse(req.body.value);
-    var arrayLength = val.updatedRooms.length;
+    var rooms = JSON.parse(req.body.rooms);
+    var arrayLength = rooms.updatedRooms.length;
     var numUpdatedRooms = 0;
 
     // Update the rooms
     for (var i = 0; i < arrayLength; i++) {
-      console.log(val.updatedRooms[i]);
-      scheduleResource.name = val.updatedRooms[i].name;
-      scheduleResource.description = val.updatedRooms[i].description;
-      scheduleResource.tags = val.updatedRooms[i].tags;
+      console.log(rooms.updatedRooms[i]);
+      scheduleResource.name = rooms.updatedRooms[i].name;
+      scheduleResource.description = rooms.updatedRooms[i].description;
+      scheduleResource.tags = rooms.updatedRooms[i].tags;
 
-      kaltura.services.scheduleResource.update(val.updatedRooms[i].id, scheduleResource)
-      .execute(client)
-      .then(result => {
-        console.log(result);
+      // Either update or delete the rooms
+      if (req.body.delete) {
+        kaltura.services.scheduleResource.deleteAction(rooms.updatedRooms[i].id)
+        .execute(client)
+        .then(result => {
+          console.log(result);
 
-        // Send response after all rooms have completed updating
-        if (++numUpdatedRooms === arrayLength) {
-          res.end();
-        }
-      });
+          // Send response after all rooms have completed deletion
+          if (++numUpdatedRooms === arrayLength) {
+            res.end();
+          }
+        });
+      } else {
+        kaltura.services.scheduleResource.update(rooms.updatedRooms[i].id, scheduleResource)
+        .execute(client)
+        .then(result => {
+          console.log(result);
+
+          // Send response after all rooms have completed updating
+          if (++numUpdatedRooms === arrayLength) {
+            res.end();
+          }
+        });
+      }
     }
   })
   .execute(client);
