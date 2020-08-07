@@ -11,7 +11,7 @@ This is a very basic node express based app (generated using [Express Generator]
 1. Copy `config.template.json` to `config.json`
 1. Open `config.json`, configure according to the instructions and remove all comments
 1. Run:
-   * On Mac/Linux - `DEBUG=kalturameeting:* npm start`
+   * On Mac/Linux - `DEBUG=kalturaroommanager:* npm start`
    * Windows - `set DEBUG=myapp:* & npm start`
 1. Load http://localhost:3000/ in your browser to access the app.
 
