@@ -55,9 +55,15 @@ block content
       var updatedRooms = JSON.stringify( { "updatedRooms": checkedRows } );
       //alert(updatedRooms);
 
+      // Send POST to /updaterooms and reload page when updates complete
       var xhr = new XMLHttpRequest();
       xhr.open("POST", "/updaterooms", true);
       xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = function(e) {
+        if (xhr.readyState === 4) {
+          location.reload();
+        }
+      }
       xhr.send(JSON.stringify({
           value: updatedRooms
       }));

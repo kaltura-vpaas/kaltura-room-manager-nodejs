@@ -26,6 +26,7 @@ router.post('/', function(req, res, next) {
     var scheduleResource = new kaltura.objects.LocationScheduleResource();
     var val = JSON.parse(req.body.value);
     var arrayLength = val.updatedRooms.length;
+    var numUpdatedRooms = 0;
 
     // Update the rooms
     for (var i = 0; i < arrayLength; i++) {
@@ -38,12 +39,15 @@ router.post('/', function(req, res, next) {
       .execute(client)
       .then(result => {
         console.log(result);
+
+        // Send response after all rooms have completed updating
+        if (++numUpdatedRooms === arrayLength) {
+          res.end();
+        }
       });
     }
   })
-  .execute(client); 
-  //res.redirect('/');
-  //res.render('updaterooms', { });
+  .execute(client);
 });
 
 module.exports = router;
