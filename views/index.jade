@@ -3,7 +3,7 @@ extends layout
 block content
   img.heroimg#heroimg(src="/images/kaltura-logo.png" alt="Kaltura Logo")
   h1= title
-  h4.divider _______________
+  h4.divider ____________________
 
   table.table.table-striped#roomTable(style="width:100%;table-layout:fixed;")
     thead
@@ -70,10 +70,10 @@ block content
       }));
     }
 
-  h4.divider _______________
-  button.btn.update(onclick='updateRooms(false)') Update Rooms
-  button.btn.delete(onclick='updateRooms(true)') Delete Rooms
-  h4.divider _______________
+  button.btn.update(onclick='updateRooms(false)') update rooms
+  button.btn.delete(onclick='updateRooms(true)') delete rooms
+  h4.divider ____________________
+  h2 room creation
 
   form(method='POST' action='/createroom')
     div.form-group
@@ -85,5 +85,5 @@ block content
     div.form-group
       label.label(for='tags') Tags
       input#tags.input.form-control(type='text', placeholder='tags' name='tags' value='vcprovider:newrow')
-    button.btn.create(type='submit') Create Room
-  h4.divider _______________
+    button.btn.create(type='submit') create
+  h4.divider ____________________
