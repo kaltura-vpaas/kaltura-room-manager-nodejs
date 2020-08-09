@@ -14,8 +14,8 @@ for( var i = 0,length = keys.length; i < length; i++ ) {
   app.set('k'+keys[i], configFile[keys[i]]);
 }
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname + '/templates'));
 
 app.use(logger('dev'));
 app.use(express.json());
