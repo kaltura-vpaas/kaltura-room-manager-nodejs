@@ -7,6 +7,7 @@ const configFile = require('./config.json');
 var indexRouter = require('./routes/index');
 var updateroomsRouter = require('./routes/updaterooms');
 var createroomRouter = require('./routes/createroom');
+var joinroomRouter = require('./routes/joinroom');
 
 var app = express();
 var keys = Object.keys( configFile );
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/updaterooms', updateroomsRouter);
 app.use('/createroom', createroomRouter);
+app.use('/joinroom', joinroomRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

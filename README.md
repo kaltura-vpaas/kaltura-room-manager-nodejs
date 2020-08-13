@@ -18,6 +18,13 @@ This is a very basic node express based app (generated using [Express Generator]
 * index (/) - the homepage shows a table of existing rooms (resources) and some of their attributes including room name, description and tags.
 * updaterooms updates the rooms that were checked in the table
 
+## TO DO
+* Security audit - e.g. input validation is not yet done.
+* Add paging, sorting and filtering to the UI.
+* Add support for more than 500 resources via paging.
+* Implement an admin login flow instead of using API secret in the config - will be more secured and will also allow for audit on who did what in case of issues.
+* Tags field should have some input validation to ensure no faulty data is entered and only valid tags are added.
+
 ## Where to get help
 * Join the [Kaltura Community Forums](https://forum.kaltura.org/) to ask questions or start discussions
 * Read the [Code of conduct](https://forum.kaltura.org/faq) and be patient and respectful
