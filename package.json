@@ -16,7 +16,7 @@
     "http-errors": "~1.6.3",
     "kaltura-client": "^16.0.0",
     "morgan": "~1.9.1",
-    "pug": "^3.0.0"
+    "pug": "^3.0.1"
   },
   "keywords": [
     "kaltura",
